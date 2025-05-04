@@ -27,8 +27,8 @@
       }
 
       #vinyl {
-        width: 300px; /* Adjusted to make the image larger */
-        height: 300px;
+        width: 350px; /* Increased size to make the image larger */
+        height: 350px;
         animation: rotate 10s linear infinite;
         animation-play-state: paused; /* Default to paused */
         border-radius: 50%; /* Circular vinyl effect */
@@ -53,17 +53,6 @@
         height: 100%;
         border-radius: 50%;
         background-color: rgba(255, 255, 255, 0.3);
-      }
-
-      /* Content overlay for album title */
-      .content {
-        position: absolute;
-        top: 50%;
-        left: 50%;
-        transform: translate(-50%, -50%);
-        color: white;
-        font-size: 20px;
-        font-weight: bold;
       }
 
       /* Playlist button styling */
@@ -96,12 +85,8 @@
       <img
         id="vinyl"
         src="IMG_9471.JPG"  <!-- Default image -->
-        alt=""  <!-- Empty alt text to remove description -->
-      />
+        /> <!-- Removed alt attribute completely -->
       <div class="vinyl-frame"></div>
-      <div class="content">
-        <h2 style="visibility: hidden;">Album Title 1</h2> <!-- Hidden album title -->
-      </div>
     </div>
 
     <!-- Playlist Controls -->
