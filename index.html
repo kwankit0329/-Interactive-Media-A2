@@ -92,14 +92,15 @@
         color: white;
       }
 
-      /* Progress bar styling */
+      /* Progress bar container styling */
       .progress-container {
-        width: 80%; /* Adjust the width */
+        width: 70%; /* Adjust the width to make it shorter */
         margin-top: 20px;
         background-color: #ddd;
         height: 10px;
         border-radius: 5px;
         overflow: hidden;
+        cursor: pointer;
       }
 
       .progress-bar {
@@ -136,7 +137,7 @@
     </div>
 
     <!-- Progress Bar -->
-    <div class="progress-container">
+    <div class="progress-container" onclick="setProgress(event)">
       <div id="progress-bar" class="progress-bar"></div>
     </div>
 
@@ -222,6 +223,12 @@
         const progress = (audioPlayer.currentTime / audioPlayer.duration) * 100;
         progressBar.style.width = `${progress}%`;
       });
+
+      // Function to set the progress when clicking on the progress bar
+      function setProgress(event) {
+        const clickPosition = (event.offsetX / event.target.offsetWidth) * audioPlayer.duration;
+        audioPlayer.currentTime = clickPosition;
+      }
 
       // Initially play the first track
       nextTrack();
