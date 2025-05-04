@@ -231,6 +231,11 @@
         audioPlayer.currentTime = clickPosition;
       }
 
+      // Function to play the next track when the current track ends
+      audioPlayer.addEventListener('ended', () => {
+        nextTrack(); // Automatically switch to the next track
+      });
+
       // Initially play the first track
       nextTrack();
     </script>
