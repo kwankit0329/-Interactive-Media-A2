@@ -114,14 +114,16 @@
 
       /* Progress bar container styling */
       .progress-container {
-        width: 60%; /* Adjust the width to make it shorter (60%) */
+        width: 90%; /* Set width to 1.5 times the original (60%) */
         background-color: #ddd;
         height: 10px;
         border-radius: 5px;
         overflow: hidden;
         cursor: pointer;
-        margin-top: 20px;
-        margin-bottom: 30px; /* Move the progress bar closer to the buttons */
+        position: absolute;
+        top: 50%; /* Place it in the center of the page vertically */
+        left: 50%;
+        transform: translateX(-50%); /* Center it horizontally */
       }
 
       .progress-bar {
