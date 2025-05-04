@@ -122,6 +122,10 @@
         overflow: hidden;
         cursor: pointer;
         margin-bottom: 30px; /* Move the progress bar closer to the buttons */
+        position: absolute;
+        top: 50%; /* Place it in the center */
+        left: 50%;
+        transform: translate(-50%, -50%); /* Center the progress bar horizontally and vertically */
       }
 
       .progress-bar {
@@ -134,6 +138,24 @@
       /* Hide the play controls and album when not in use */
       .play-area {
         display: none;
+      }
+
+      /* Back button in the top left */
+      .back-button {
+        position: absolute;
+        top: 20px;
+        left: 20px;
+        background-color: #333;
+        color: white;
+        padding: 10px;
+        border: none;
+        cursor: pointer;
+        border-radius: 5px;
+        transition: background-color 0.3s ease;
+      }
+
+      .back-button:hover {
+        background-color: #555;
       }
     </style>
   </head>
@@ -168,6 +190,11 @@
 
     <!-- Vinyl Record and Music Controls (Initially hidden) -->
     <div class="play-area">
+      <!-- Back Button to return to album selection -->
+      <button class="back-button" onclick="goBackToSelection()">
+        <i class="fas fa-list"></i>
+      </button>
+
       <div class="vinyl-container">
         <img id="vinyl" src="" />
         <div class="vinyl-frame"></div>
@@ -231,6 +258,12 @@
         nextTrack();
       }
 
+      // Function to go back to album selection
+      function goBackToSelection() {
+        document.querySelector('.album-selection').style.display = 'flex';
+        document.querySelector('.play-area').style.display = 'none';
+      }
+
       // Function to play or pause the track
       function togglePlayPause() {
         if (audioPlayer.paused) {
@@ -248,6 +281,9 @@
         audioSource.src = audioFiles[currentTrack];
         audioPlayer.load(); // Reload the audio player with new source
         audioPlayer.play(); // Start playing the new track
+
+        // Change the vinyl image
+        vinyl.src = images[currentTrack];
 
         // Start the vinyl rotation when the track starts playing
         audioPlayer.addEventListener('play', () => {
