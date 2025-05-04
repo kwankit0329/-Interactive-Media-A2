@@ -109,4 +109,37 @@
       // Music tracks corresponding to each album cover
       const audioFiles = [
         'https://thelongesthumstore.sgp1.cdn.digitaloceanspaces.com/IM-2250/p-hase_Hes.mp3',
-        'https
+        'https://thelongesthumstore.sgp1.cdn.digitaloceanspaces.com/IM-2250/p-hase_Dry-Down-feat-Ben-Snaath.mp3',
+        'https://thelongesthumstore.sgp1.cdn.digitaloceanspaces.com/IM-2250/p-hase_Leapt.mp3',
+        'https://thelongesthumstore.sgp1.cdn.digitaloceanspaces.com/IM-2250/p-hase_Water-Feature.mp3'
+      ];
+
+      let currentTrack = 0; // Track index to keep track of the current track
+
+      // Function to change track and update vinyl image
+      function changeTrack() {
+        // Change the audio source to the next track
+        currentTrack = (currentTrack + 1) % audioFiles.length; // Loop back to the first track
+        audioSource.src = audioFiles[currentTrack];
+        audioPlayer.load(); // Reload the audio player with new source
+        audioPlayer.play(); // Start playing the new track
+
+        // Change the vinyl image
+        vinyl.src = images[currentTrack];
+
+        // Start the vinyl rotation when the track starts playing
+        audioPlayer.addEventListener('play', () => {
+          vinyl.style.animationPlayState = 'running';
+        });
+
+        // Pause the vinyl rotation when the track pauses
+        audioPlayer.addEventListener('pause', () => {
+          vinyl.style.animationPlayState = 'paused';
+        });
+      }
+
+      // Initially play the first track
+      changeTrack();
+    </script>
+  </body>
+</html>
