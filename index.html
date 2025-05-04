@@ -1,9 +1,17 @@
+
 <!DOCTYPE html>
 <html lang="en">
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Vinyl Album with Music</title>
+
+    <!-- Include Font Awesome for icons -->
+    <link
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css"
+      rel="stylesheet"
+    />
+
     <style>
       /* Body styling to center everything vertically and horizontally */
       body {
@@ -23,7 +31,7 @@
       .vinyl-container {
         position: relative;
         display: inline-block;
-        margin-top: 20px; /* Adjust top margin if necessary */
+        margin-top: 20px;
       }
 
       #vinyl {
@@ -55,21 +63,23 @@
         background-color: rgba(255, 255, 255, 0.3);
       }
 
-      /* Playlist button styling */
+      /* Controls container styling */
       .controls {
         margin-top: 30px;
         display: flex;
         justify-content: center;
         gap: 20px;
+        align-items: center;
       }
 
+      /* Button styling */
       .playlist-button {
         padding: 15px 30px;
         background-color: #333;
         color: white;
         border: none;
         cursor: pointer;
-        font-size: 18px;
+        font-size: 24px;
         border-radius: 5px;
         transition: background-color 0.3s ease;
       }
@@ -77,18 +87,37 @@
       .playlist-button:hover {
         background-color: #555;
       }
+
+      /* Icon styling for buttons */
+      .fa {
+        font-size: 30px; /* Adjust icon size */
+        color: white;
+      }
     </style>
   </head>
   <body>
     <!-- Vinyl Record and Album Cover -->
     <div class="vinyl-container">
-      <img id="vinyl" src="IMG_9471.JPG"> <!-- No alt="" and no self-closing "/" symbol -->
+      <img id="vinyl" src="IMG_9471.JPG" />
       <div class="vinyl-frame"></div>
     </div>
 
     <!-- Playlist Controls -->
     <div class="controls">
-      <button class="playlist-button" onclick="changeTrack()">Next Track</button>
+      <!-- Previous track button -->
+      <button class="playlist-button" onclick="previousTrack()">
+        <i class="fas fa-backward"></i>
+      </button>
+
+      <!-- Play/Pause button -->
+      <button class="playlist-button" onclick="togglePlayPause()">
+        <i id="play-pause-icon" class="fas fa-play"></i>
+      </button>
+
+      <!-- Next track button -->
+      <button class="playlist-button" onclick="nextTrack()">
+        <i class="fas fa-forward"></i>
+      </button>
     </div>
 
     <!-- Audio Player -->
@@ -100,6 +129,7 @@
       const vinyl = document.getElementById('vinyl');
       const audioPlayer = document.getElementById('audio-player');
       const audioSource = document.getElementById('audio-source');
+      const playPauseIcon = document.getElementById('play-pause-icon');
 
       // Image paths for the album covers
       const images = ['IMG_9471.JPG', 'IMG_9472.JPG', 'IMG_9473.JPG', 'IMG_9474.JPG'];
@@ -113,9 +143,19 @@
 
       let currentTrack = 0; // Track index to keep track of the current track
 
-      // Function to change track and update vinyl image
-      function changeTrack() {
-        // Change the audio source to the next track
+      // Function to play or pause the track
+      function togglePlayPause() {
+        if (audioPlayer.paused) {
+          audioPlayer.play();
+          playPauseIcon.classList.replace('fa-play', 'fa-pause');
+        } else {
+          audioPlayer.pause();
+          playPauseIcon.classList.replace('fa-pause', 'fa-play');
+        }
+      }
+
+      // Function to change to the next track
+      function nextTrack() {
         currentTrack = (currentTrack + 1) % audioFiles.length; // Loop back to the first track
         audioSource.src = audioFiles[currentTrack];
         audioPlayer.load(); // Reload the audio player with new source
@@ -135,8 +175,29 @@
         });
       }
 
+      // Function to change to the previous track
+      function previousTrack() {
+        currentTrack = (currentTrack - 1 + audioFiles.length) % audioFiles.length; // Loop to the last track
+        audioSource.src = audioFiles[currentTrack];
+        audioPlayer.load(); // Reload the audio player with new source
+        audioPlayer.play(); // Start playing the new track
+
+        // Change the vinyl image
+        vinyl.src = images[currentTrack];
+
+        // Start the vinyl rotation when the track starts playing
+        audioPlayer.addEventListener('play', () => {
+          vinyl.style.animationPlayState = 'running';
+        });
+
+        // Pause the vinyl rotation when the track pauses
+        audioPlayer.addEventListener('pause', () => {
+          vinyl.style.animationPlayState = 'paused';
+        });
+      }
+
       // Initially play the first track
-      changeTrack();
+      nextTrack();
     </script>
   </body>
 </html>
