@@ -12,17 +12,18 @@
     />
 
     <style>
-      /* Body styling to center everything vertically and horizontally */
+      /* Apply the gradient background to the whole page */
       body {
-        font-family: Arial, sans-serif;
-        background-color: #f4f4f4;
         margin: 0;
         padding: 0;
         display: flex;
         justify-content: center;
         align-items: center;
         height: 100vh;
-        flex-direction: column;
+        background: linear-gradient(45deg, #9b4f96, #4c1d2f); /* Diagonal gradient */
+        background-size: 100% 100%;
+        font-family: Arial, sans-serif;
+        color: white;
         text-align: center;
       }
 
@@ -114,7 +115,7 @@
 
       /* Progress bar container styling */
       .progress-container {
-        width: 60%; /* Set width back to original 60% */
+        width: 60%; /* Set width to 1.5 times the original (60%) */
         background-color: #ddd;
         height: 10px;
         border-radius: 5px;
