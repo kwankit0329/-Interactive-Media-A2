@@ -33,6 +33,8 @@
         justify-content: space-around;
         width: 80%;
         margin-top: 50px;
+        flex-direction: column;
+        align-items: center;
       }
 
       .album-cover {
@@ -46,6 +48,19 @@
 
       .album-cover:hover {
         transform: scale(1.1);
+      }
+
+      /* Video styling */
+      .video-container {
+        width: 100%;
+        max-width: 500px;
+        margin-bottom: 20px;
+      }
+
+      video {
+        width: 100%;
+        height: auto;
+        border-radius: 10px;
       }
 
       /* Vinyl container to center the album cover and vinyl rotation */
@@ -163,30 +178,41 @@
   <body>
     <!-- Album Selection -->
     <div class="album-selection">
-      <img
-        class="album-cover"
-        src="IMG_9471.JPG"
-        alt="Album 1"
-        onclick="startPlaying(0)"
-      />
-      <img
-        class="album-cover"
-        src="IMG_9472.JPG"
-        alt="Album 2"
-        onclick="startPlaying(1)"
-      />
-      <img
-        class="album-cover"
-        src="IMG_9473.JPG"
-        alt="Album 3"
-        onclick="startPlaying(2)"
-      />
-      <img
-        class="album-cover"
-        src="IMG_9474.JPG"
-        alt="Album 4"
-        onclick="startPlaying(3)"
-      />
+      <!-- Video Display -->
+      <div class="video-container">
+        <video id="album-video" controls>
+          <source src="https://thelongesthumstore.sgp1.cdn.digitaloceanspaces.com/IM-2250/miac.mp4" type="video/mp4" />
+          Your browser does not support the video tag.
+        </video>
+      </div>
+
+      <!-- Album Covers -->
+      <div>
+        <img
+          class="album-cover"
+          src="IMG_9471.JPG"
+          alt="Album 1"
+          onclick="startPlaying(0)"
+        />
+        <img
+          class="album-cover"
+          src="IMG_9472.JPG"
+          alt="Album 2"
+          onclick="startPlaying(1)"
+        />
+        <img
+          class="album-cover"
+          src="IMG_9473.JPG"
+          alt="Album 3"
+          onclick="startPlaying(2)"
+        />
+        <img
+          class="album-cover"
+          src="IMG_9474.JPG"
+          alt="Album 4"
+          onclick="startPlaying(3)"
+        />
+      </div>
     </div>
 
     <!-- Vinyl Record and Music Controls (Initially hidden) -->
@@ -231,6 +257,7 @@
       const audioSource = document.getElementById('audio-source');
       const playPauseIcon = document.getElementById('play-pause-icon');
       const progressBar = document.getElementById('progress-bar');
+      const videoElement = document.getElementById('album-video');
 
       // Image paths for the album covers
       const images = ['IMG_9471.JPG', 'IMG_9472.JPG', 'IMG_9473.JPG', 'IMG_9474.JPG'];
@@ -254,6 +281,7 @@
         vinyl.src = images[trackIndex];
         audioSource.src = audioFiles[trackIndex];
         audioPlayer.load(); // Reload the audio player with new source
+        videoElement.pause(); // Pause video when switching to music
 
         // Play the selected track
         audioPlayer.play();
@@ -271,6 +299,9 @@
         // Hide the play area and show the album selection again
         document.querySelector('.album-selection').style.display = 'flex';
         document.querySelector('.play-area').style.display = 'none';
+
+        // Restart the video when going back to selection
+        videoElement.play();
       }
 
       // Function to play or pause the track
