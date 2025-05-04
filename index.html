@@ -255,8 +255,11 @@
         audioSource.src = audioFiles[trackIndex];
         audioPlayer.load(); // Reload the audio player with new source
 
-        // Initially play the first track
-        nextTrack();
+        // Play the selected track
+        audioPlayer.play();
+
+        // Update the track index
+        currentTrack = trackIndex;
       }
 
       // Function to go back to album selection
