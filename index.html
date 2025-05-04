@@ -5,17 +5,30 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Vinyl Album with Music</title>
     <style>
+      /* Body styling */
+      body {
+        font-family: Arial, sans-serif;
+        background-color: #f4f4f4;
+        margin: 0;
+        padding: 0;
+        display: flex;
+        justify-content: center;
+        align-items: flex-start;
+        height: 100vh;
+        flex-direction: column;
+        text-align: center;
+      }
+
       /* Vinyl container to center the album cover and vinyl rotation */
       .vinyl-container {
         position: relative;
         display: inline-block;
-        margin-top: 50px;
-        text-align: center;
+        margin-top: 30px;
       }
 
       #vinyl {
-        width: 250px; /* Adjust as needed */
-        height: 250px;
+        width: 300px; /* Adjusted to make the image larger */
+        height: 300px;
         animation: rotate 10s linear infinite;
         animation-play-state: paused; /* Default to paused */
         border-radius: 50%; /* Circular vinyl effect */
@@ -31,7 +44,7 @@
         }
       }
 
-      /* Optional vinyl frame styling */
+      /* Vinyl frame styling */
       .vinyl-frame {
         position: absolute;
         top: 0;
@@ -42,33 +55,37 @@
         background-color: rgba(255, 255, 255, 0.3);
       }
 
-      /* Content overlay for album title or any other text */
+      /* Content overlay for album title */
       .content {
         position: absolute;
         top: 50%;
         left: 50%;
         transform: translate(-50%, -50%);
         color: white;
+        font-size: 20px;
+        font-weight: bold;
       }
 
-      /* Control buttons for track selection */
+      /* Playlist button styling */
       .controls {
+        margin-top: 20px;
         display: flex;
         justify-content: center;
-        gap: 15px;
-        margin-top: 20px;
+        gap: 20px;
       }
 
-      button {
-        padding: 10px 20px;
+      .playlist-button {
+        padding: 15px 30px;
         background-color: #333;
         color: white;
         border: none;
         cursor: pointer;
-        font-size: 16px;
+        font-size: 18px;
+        border-radius: 5px;
+        transition: background-color 0.3s ease;
       }
 
-      button:hover {
+      .playlist-button:hover {
         background-color: #555;
       }
     </style>
@@ -87,12 +104,9 @@
       </div>
     </div>
 
-    <!-- Track Selection Buttons -->
+    <!-- Playlist Controls -->
     <div class="controls">
-      <button onclick="changeTrack(0)">Track 1</button>
-      <button onclick="changeTrack(1)">Track 2</button>
-      <button onclick="changeTrack(2)">Track 3</button>
-      <button onclick="changeTrack(3)">Track 4</button>
+      <button class="playlist-button" onclick="changeTrack(0)">Next Track</button>
     </div>
 
     <!-- Audio Player -->
@@ -117,6 +131,8 @@
       // Album titles
       const albumTitles = ['Album Title 1', 'Album Title 2', 'Album Title 3', 'Album Title 4'];
 
+      let currentTrack = 0; // Track index to keep track of the current track
+
       // Function to change track and update vinyl image
       function changeTrack(index) {
         // Change the audio source
@@ -137,7 +153,13 @@
         audioPlayer.addEventListener('pause', () => {
           vinyl.style.animationPlayState = 'paused';
         });
+
+        // Update current track index to move to next
+        currentTrack = (currentTrack + 1) % audioFiles.length; // Loop back to the first track
       }
+
+      // Initially play the first track
+      changeTrack(currentTrack);
     </script>
   </body>
 </html>
