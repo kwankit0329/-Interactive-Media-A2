@@ -32,14 +32,15 @@
         display: flex;
         justify-content: space-around;
         width: 80%;
-        margin-top: 50px;
+        margin-top: 100px; /* Adjust to move album covers down */
         flex-direction: column;
         align-items: center;
       }
 
+      /* Adjust album cover size (1.3x larger) */
       .album-cover {
-        width: 150px;
-        height: 150px;
+        width: 195px; /* Increased size by 1.3x */
+        height: 195px;
         border-radius: 50%;
         cursor: pointer;
         transition: transform 0.3s;
@@ -50,10 +51,10 @@
         transform: scale(1.1);
       }
 
-      /* Video styling */
+      /* Video styling (double the size) */
       .video-container {
         width: 100%;
-        max-width: 500px;
+        max-width: 1000px; /* Adjust for double the original size */
         margin-bottom: 20px;
       }
 
