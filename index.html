@@ -3,24 +3,26 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Media Player - Vinyl Version</title>
-    <link rel="stylesheet" href="reset.css" />
-    <link rel="stylesheet" href="style.css" />
+    <title>Vinyl Album with Music</title>
     <style>
+      /* Vinyl container to center the album cover and vinyl rotation */
       .vinyl-container {
-        display: flex;
-        justify-content: center;
-        margin-top: 20px;
+        position: relative;
+        display: inline-block;
+        margin-top: 50px;
+        text-align: center;
       }
 
       #vinyl {
-        width: 200px;
-        height: 200px;
-        animation: spin 5s linear infinite;
-        animation-play-state: paused; /* 默认不动 */
+        width: 250px; /* Adjust as needed */
+        height: 250px;
+        animation: rotate 10s linear infinite;
+        animation-play-state: paused; /* Default to paused */
+        border-radius: 50%; /* Circular vinyl effect */
       }
 
-      @keyframes spin {
+      /* Rotate animation */
+      @keyframes rotate {
         from {
           transform: rotate(0deg);
         }
@@ -28,81 +30,114 @@
           transform: rotate(360deg);
         }
       }
+
+      /* Optional vinyl frame styling */
+      .vinyl-frame {
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        border-radius: 50%;
+        background-color: rgba(255, 255, 255, 0.3);
+      }
+
+      /* Content overlay for album title or any other text */
+      .content {
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        color: white;
+      }
+
+      /* Control buttons for track selection */
+      .controls {
+        display: flex;
+        justify-content: center;
+        gap: 15px;
+        margin-top: 20px;
+      }
+
+      button {
+        padding: 10px 20px;
+        background-color: #333;
+        color: white;
+        border: none;
+        cursor: pointer;
+        font-size: 16px;
+      }
+
+      button:hover {
+        background-color: #555;
+      }
     </style>
   </head>
   <body>
-    <header>
-      <h1>Media Player Website</h1>
-    </header>
-
-    <nav>
-      <ul>
-        <li><a href="#">Home</a></li>
-        <li><a href="#">Videos</a></li>
-        <li><a href="#">Music</a></li>
-        <li><a href="#">Playlists</a></li>
-      </ul>
-    </nav>
-
-    <main class="container">
-      <div class="media-player">
-        <video id="custom-video-player" controls>
-          <source
-            src="https://thelongesthumstore.sgp1.cdn.digitaloceanspaces.com/IM-2250/miac.mp4"
-            type="video/mp4"
-          />
-        </video>
-
-        <div class="custom-controls">
-          <button id="play-pause-btn" onclick="togglePlayPause()">
-            <img
-              id="play-pause-img"
-              src="https://img.icons8.com/ios-glyphs/30/play--v1.png"
-              alt="Play Button"
-              width="24"
-              height="24"
-            />
-          </button>
-          <div class="progress-bar">
-            <span id="progress-bar-fill"></span>
-          </div>
-        </div>
+    <!-- Vinyl Record and Album Cover -->
+    <div class="vinyl-container">
+      <img
+        id="vinyl"
+        src="IMG_9471.JPG"  <!-- Default image -->
+        alt="Vinyl Record"
+      />
+      <div class="vinyl-frame"></div>
+      <div class="content">
+        <h2>Album Title 1</h2>
       </div>
+    </div>
 
-      <!-- Vinyl Record (黑胶唱片) 动画区域 -->
-      <div class="vinyl-container">
-        <img
-          id="vinyl"
-          src="https://i.imgur.com/suM3L9V.png"
-          alt="Vinyl Record"
-        />
-      </div>
+    <!-- Track Selection Buttons -->
+    <div class="controls">
+      <button onclick="changeTrack(0)">Track 1</button>
+      <button onclick="changeTrack(1)">Track 2</button>
+      <button onclick="changeTrack(2)">Track 3</button>
+      <button onclick="changeTrack(3)">Track 4</button>
+    </div>
 
-      <section>
-        <h2>Additional Content</h2>
-        <p>This is where you can showcase any other relevant content.</p>
-      </section>
-    </main>
-
-    <footer>
-      <p>&copy; 2024 Media Player Website. All rights reserved.</p>
-      <a href="https://icons8.com/icon/59862/play">Play</a> icon by
-      <a href="https://icons8.com">Icons8</a>
-      <a href="https://icons8.com/icon/61012/pause">Pause</a> icon by
-      <a href="https://icons8.com">Icons8</a>
-    </footer>
+    <!-- Audio Player -->
+    <audio id="audio-player" controls>
+      <source id="audio-source" src="https://thelongesthumstore.sgp1.cdn.digitaloceanspaces.com/IM-2250/p-hase_Hes.mp3" type="audio/mp3" />
+    </audio>
 
     <script>
-      const video = document.getElementById("custom-video-player");
-      const vinyl = document.getElementById("vinyl");
+      const vinyl = document.getElementById('vinyl');
+      const audioPlayer = document.getElementById('audio-player');
+      const audioSource = document.getElementById('audio-source');
 
-      video.addEventListener("play", () => {
-        vinyl.style.animationPlayState = "running";
-      });
+      // Image paths for the album covers
+      const images = ['IMG_9471.JPG', 'IMG_9472.JPG', 'IMG_9473.JPG', 'IMG_9474.JPG'];
+      // Music tracks corresponding to each album cover
+      const audioFiles = [
+        'https://thelongesthumstore.sgp1.cdn.digitaloceanspaces.com/IM-2250/p-hase_Hes.mp3',
+        'https://thelongesthumstore.sgp1.cdn.digitaloceanspaces.com/IM-2250/p-hase_Dry-Down-feat-Ben-Snaath.mp3',
+        'https://thelongesthumstore.sgp1.cdn.digitaloceanspaces.com/IM-2250/p-hase_Leapt.mp3',
+        'https://thelongesthumstore.sgp1.cdn.digitaloceanspaces.com/IM-2250/p-hase_Water-Feature.mp3'
+      ];
+      // Album titles
+      const albumTitles = ['Album Title 1', 'Album Title 2', 'Album Title 3', 'Album Title 4'];
 
-      video.addEventListener("pause", () => {
-        vinyl.style.animationPlayState = "paused";
-      });
+      // Function to change track and update vinyl image
+      function changeTrack(index) {
+        // Change the audio source
+        audioSource.src = audioFiles[index];
+        audioPlayer.load(); // Reload the audio player with new source
+        audioPlayer.play(); // Start playing the new track
+
+        // Change the vinyl image and album title
+        vinyl.src = images[index];
+        document.querySelector('.content h2').textContent = albumTitles[index];
+
+        // Start the vinyl rotation when the track starts playing
+        audioPlayer.addEventListener('play', () => {
+          vinyl.style.animationPlayState = 'running';
+        });
+
+        // Pause the vinyl rotation when the track pauses
+        audioPlayer.addEventListener('pause', () => {
+          vinyl.style.animationPlayState = 'paused';
+        });
+      }
     </script>
   </body>
 </html>
