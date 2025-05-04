@@ -115,17 +115,13 @@
       /* Progress bar container styling */
       .progress-container {
         width: 60%; /* Adjust the width to make it shorter (60%) */
-        margin-top: 20px;
         background-color: #ddd;
         height: 10px;
         border-radius: 5px;
         overflow: hidden;
         cursor: pointer;
+        margin-top: 20px;
         margin-bottom: 30px; /* Move the progress bar closer to the buttons */
-        position: absolute;
-        top: 50%; /* Place it in the center */
-        left: 50%;
-        transform: translate(-50%, -50%); /* Center the progress bar horizontally and vertically */
       }
 
       .progress-bar {
@@ -260,6 +256,11 @@
 
       // Function to go back to album selection
       function goBackToSelection() {
+        // Pause the audio when going back
+        audioPlayer.pause();
+        playPauseIcon.classList.replace('fa-pause', 'fa-play');
+
+        // Hide the play area and show the album selection again
         document.querySelector('.album-selection').style.display = 'flex';
         document.querySelector('.play-area').style.display = 'none';
       }
