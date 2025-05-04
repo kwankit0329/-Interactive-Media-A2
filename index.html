@@ -39,9 +39,28 @@
         animation: rotate 10s linear infinite;
         animation-play-state: paused; /* Default to paused */
         border-radius: 50%; /* Circular vinyl effect */
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        z-index: 2; /* Ensure vinyl is on top */
       }
 
-      /* Rotate animation */
+      #album-cover {
+        width: 280px; /* Size of the album cover */
+        height: 280px;
+        background-image: url('IMG_9475.PNG'); /* Set the album cover image */
+        background-size: cover;
+        background-position: center;
+        border-radius: 50%; /* Circular album cover */
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        z-index: 1; /* Ensure album cover is below vinyl */
+      }
+
+      /* Rotate animation for vinyl */
       @keyframes rotate {
         from {
           transform: rotate(0deg);
@@ -114,7 +133,8 @@
   <body>
     <!-- Vinyl Record and Album Cover -->
     <div class="vinyl-container">
-      <img id="vinyl" src="IMG_9471.JPG" />
+      <div id="album-cover"></div> <!-- The album cover as background -->
+      <img id="vinyl" src="IMG_9475.PNG" /> <!-- The vinyl image -->
       <div class="vinyl-frame"></div>
     </div>
 
